@@ -7,8 +7,6 @@
 const unsigned WIDTH = 800;
 const unsigned HEIGHT = 600;
 
-unsigned set_up_shader(const char *source_path, unsigned shader_type);
-
 void framebuffer_size_callback(GLFWwindow *window, int width, int height) {
   glViewport(0, 0, width, height);
 }
@@ -21,7 +19,7 @@ void processInput(GLFWwindow *window) {
 unsigned set_up_shader(const char *source_path, unsigned shader_type) {
   FILE *fp = fopen(source_path, "rb");
   if (fp == NULL) {
-    fprintf(stderr, "failed to read '%s'", source_path);
+    fprintf(stderr, "Failed to read '%s'", source_path);
   }
   fseek(fp, 0, SEEK_END);
   long source_size = ftell(fp);
@@ -31,8 +29,6 @@ unsigned set_up_shader(const char *source_path, unsigned shader_type) {
   fclose(fp);
   buf[source_size] = '\0';
 
-  printf("Successfully read file '%s'\n", source_path);
-
   unsigned shader = glCreateShader(shader_type);
   glShaderSource(shader, 1, (const char * const *)&buf, NULL);
   glCompileShader(shader);
@@ -41,7 +37,7 @@ unsigned set_up_shader(const char *source_path, unsigned shader_type) {
   glGetShaderiv(shader, GL_COMPILE_STATUS, &success);
   if (!success) {
     glGetShaderInfoLog(shader, 512, NULL, info_log);
-    fprintf(stderr, "ERROR::SHADER::COMPILATION_FAILED\n%s\n", info_log);
+    fprintf(stderr, "Shader compilation failed\n%s\n", info_log);
   }
 
   return shader;
@@ -80,7 +76,7 @@ int main() {
   glGetProgramiv(shader_program, GL_LINK_STATUS, &success);
   if (!success) {
     glGetProgramInfoLog(shader_program, 512, NULL, info_log);
-    fprintf(stderr, "ERROR::SHADER::PROGRAM::LINKING_FAILED\n%s\n", info_log);
+    fprintf(stderr, "Shader program compilation failed\n%s\n", info_log);
   }
   glDeleteShader(vertex_shader);
   glDeleteShader(fragment_shader);
