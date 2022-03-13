@@ -1,7 +1,0 @@
-malloc free pairs
-
-Learn what a render buffer is
-
-https://stackoverflow.com/questions/3887636/how-to-manipulate-texture-content-on-the-fly/10702468#10702468
-
-https://www.roxlu.com/2014/041/attributeless-vertex-shader-with-opengl
